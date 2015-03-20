@@ -1,0 +1,5 @@
+*.dll
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+
