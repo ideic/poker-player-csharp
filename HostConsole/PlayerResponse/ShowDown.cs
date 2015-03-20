@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 
 namespace HostConsole.PlayerResponse
 {
-    internal class VersionResponse : PlayerResponseBase
+    internal class ShowDown : PlayerResponseBase
     {
         public override string MyAction
         {
-            get { return "version"; }
+            get { return "showdown"; }
         }
 
         protected override string DoAction()

@@ -4,12 +4,12 @@ namespace HostConsole.PlayerResponse
 {
     internal class BetRequest : PlayerResponseBase
     {
-        protected override string DoAction()
+        public override string MyAction
         {
-            throw new NotImplementedException();
+            get { return "bet_request"; }
         }
 
-        protected override bool CanHandle(string action)
+        protected override string DoAction()
         {
             throw new NotImplementedException();
         }

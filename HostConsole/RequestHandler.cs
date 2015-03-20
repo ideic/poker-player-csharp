@@ -15,7 +15,7 @@ namespace HostConsole
             _playerResponse = new CheckResponse();
             _playerResponse.SetNext(new VersionResponse())
                 .SetNext(new BetRequest())
-                .SetNext(new GameState());
+                .SetNext(new ShowDown());
 
             _formDataParser = new FormDataParser();
         }

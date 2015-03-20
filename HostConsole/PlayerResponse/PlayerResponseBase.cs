@@ -1,6 +1,6 @@
 ﻿namespace HostConsole.PlayerResponse
 {
-    internal abstract class PlayerResponseBase : IPlayerResponse
+    public abstract class PlayerResponseBase : IPlayerResponse
     {
         private IPlayerResponse _next;
 
@@ -13,7 +13,7 @@
 
         public string GetResponse(string action, string data)
         {
-            if (CanHandle(action))
+            if (action == MyAction)
             {
                 return DoAction();
             }
@@ -25,8 +25,8 @@
             return "NoHandler";
         }
 
-        protected abstract string DoAction();
+        public abstract string MyAction { get;}
 
-        protected abstract bool CanHandle(string action);
+        protected abstract string DoAction();
     }
 }
