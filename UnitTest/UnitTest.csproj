@@ -47,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckResponseTest.cs" />
+    <Compile Include="PlayerResponse\CheckResponseTest.cs" />
+    <Compile Include="FormDataParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

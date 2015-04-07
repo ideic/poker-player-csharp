@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using HostConsole.PlayerResponse;
 
@@ -52,27 +51,5 @@ namespace HostConsole
         }
 
        
-    }
-
-    internal class FormDataParser : IFormDataParser
-    {
-        public string ActionParser(string data)
-        {
-            int actionIndex = data.IndexOf("name=\"action\"");
-            if (actionIndex > -1)
-            {
-                var values = data.Substring(actionIndex + 1).Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                var action = values[1];
-
-                return action;
-            }
-
-            return "NoAction";
-        }
-    }
-
-    internal interface IFormDataParser
-    {
-        string ActionParser(string cleanedData);
     }
 }

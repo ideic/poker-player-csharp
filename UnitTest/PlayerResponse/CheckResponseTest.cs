@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HostConsole.PlayerResponse;
+﻿using HostConsole.PlayerResponse;
 using NUnit.Framework;
 
-namespace UnitTest
+namespace UnitTest.PlayerResponse
 {
     [TestFixture]
     public class CheckResponseTest
