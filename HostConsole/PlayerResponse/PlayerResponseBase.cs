@@ -13,6 +13,7 @@
 
         public string GetResponse(string action, string data)
         {
+            Data = data;
             if (action == MyAction)
             {
                 return DoAction();
@@ -24,6 +25,8 @@
 
             return "NoHandler";
         }
+
+        protected string Data { get; set; }
 
         public abstract string MyAction { get;}
 
