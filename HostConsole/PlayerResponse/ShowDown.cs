@@ -11,7 +11,7 @@ namespace HostConsole.PlayerResponse
 
         protected override string DoAction()
         {
-            throw new NotImplementedException();
+            return MyAction;
         }
     }
 }

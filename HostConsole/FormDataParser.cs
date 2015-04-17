@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using HostConsole.DTO;
 using Newtonsoft.Json;
@@ -10,58 +11,34 @@ namespace HostConsole
     {
         public string ActionParser(string data)
         {
-            const string result = "NoAction"; ;
-
-            foreach (var formDataItem in GetFormData(data))
-            {
-                var nameValue = formDataItem.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
-                switch (nameValue[0].Trim())
-                {
-                    case "name=\"action\"":
-                        return nameValue[1];
-
-                }
-            }
-
-            return result;
+            return InputParser(data, "action", "NoAction");
         }
 
-        private static ICollection<string> GetFormData(string data)
+        private static IEnumerable<string> GetFormData(string data)
         {
-            if (string.IsNullOrEmpty(data)) return new List<string>();
-
-            var contents = data.Split(new[] {"Content-Disposition: form-data;"}, StringSplitOptions.RemoveEmptyEntries);
-            var partSeparator = contents[0].Replace("\r\n", string.Empty);
-            contents = data.Split(new[] {partSeparator}, StringSplitOptions.RemoveEmptyEntries);
-
-            var result = contents.Select(dataItem =>
-                                       {
-                                           var nameValue = dataItem.Split(new[] {"Content-Disposition: form-data;"}, StringSplitOptions.RemoveEmptyEntries);
-                                           if (nameValue.Length > 1)
-                                           {
-                                               return nameValue[1];
-                                           }
-
-                                           return null;
-                                       }).Where(item => item != null).ToList();
-            return result;
+            return data.Replace("'", "").Split(new []{"&"}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public GameState GameStateParser(string input)
         {
-            if (string.IsNullOrEmpty(input)) return null;
+            var parseResult = InputParser(input, "game_state", null);
 
-            foreach (var formDataItem in GetFormData(input))
+            if (string.IsNullOrEmpty(parseResult)) return null;
+
+            return JsonConvert.DeserializeObject<GameState>(parseResult);
+        }
+
+        private string InputParser(string data, string token, string defaultValue)
+        {
+            if (string.IsNullOrEmpty(data)) return defaultValue;
+
+            foreach (var formDataItem in GetFormData(data))
             {
-                var nameValue = formDataItem.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-                switch (nameValue[0].Trim())
-                {
-                    case "name=\"game_state\"":
-                        return JsonConvert.DeserializeObject<GameState>(nameValue[1]);
-                }
+                var nameValue = formDataItem.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+                if (nameValue[0].Trim() == token) return nameValue[1];
             }
 
-            return null;
+            return defaultValue;
         }
     }
 }
